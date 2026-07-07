@@ -116,8 +116,27 @@ for (var n = 0; n < 5; n++) {
   })();
 }
 
-var startTime = Date.now();
 var totalArticles = 0;
+var runtimeStorageKey = 'site-start-time';
+function getSiteStartTime() {
+  try {
+    var saved = localStorage.getItem(runtimeStorageKey);
+    if (saved) {
+      return parseInt(saved, 10);
+    }
+  } catch (e) {}
+
+  var lastModified = Date.parse(document.lastModified);
+  var startTime = (!isNaN(lastModified) && lastModified > 0) ? lastModified : Date.now();
+
+  try {
+    localStorage.setItem(runtimeStorageKey, String(startTime));
+  } catch (e) {}
+
+  return startTime;
+}
+
+var startTime = getSiteStartTime();
 function updateRuntimeInfo() {
   var elapsed = Math.floor((Date.now() - startTime) / 1000);
   var h = String(Math.floor(elapsed / 3600)).padStart(2, '0');
