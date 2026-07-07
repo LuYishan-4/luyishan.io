@@ -161,7 +161,7 @@ function createFriendCard(friend) {
     '<div class="friend-avatar">' + avatarHtml + '</div>',
     '<h3 class="friend-name">' + friend.name + '</h3>',
     '<p class="friend-description">' + friend.description + '</p>',
-    '<a class="friend-link" href="' + friend.url + '" target="_blank" rel="noopener noreferrer">前往站點</a>'
+    '<a class="friend-link" href="' + friend.url + '" target="_blank" rel="noopener noreferrer">前往</a>'
   ].join('');
   card.style.borderColor = friend.accent;
   card.style.boxShadow = '0 10px 24px rgba(0, 0, 0, 0.25)';
