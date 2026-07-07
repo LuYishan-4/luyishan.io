@@ -79,6 +79,11 @@ function resolveAssetPath(relativePath) {
 }
 
 var flyGifs = [
+  resolveAssetPath('asstes/fly/永雏塔菲.gif'),
+  resolveAssetPath('asstes/fly/arisu-aris.gif'),
+  resolveAssetPath('asstes/fly/arisu-aris.gif'),
+  resolveAssetPath('asstes/fly/phoebe-wuwa.gif'),
+  resolveAssetPath('asstes/fly/tachibana-sherii-橘雪莉.gif'),
   resolveAssetPath('asstes/fly/1510712344026546216-1.gif'),
   resolveAssetPath('asstes/fly/kkkk.gif'),
   resolveAssetPath('asstes/fly/mutsumi-mortis.gif'),
