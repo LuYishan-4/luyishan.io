@@ -430,6 +430,115 @@ a.back {
   font-size: 0.8em;
   margin-left: 0.5em;
 }
+.friends-shell {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+.friends-board {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: rgba(17, 17, 17, 0.78);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  border-radius: 0;
+  pointer-events: auto;
+}
+.page-title,
+a.back {
+  position: relative;
+  z-index: 20;
+}
+.friend-card {
+  position: absolute;
+  display: inline-block;
+  min-width: 220px;
+  max-width: 280px;
+  width: auto;
+  padding: 2px;
+  border-radius: 16px;
+  color: #222;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  user-select: none;
+  will-change: left, top;
+  overflow: hidden;
+  isolation: isolate;
+  background: conic-gradient(from 0deg, red, yellow, lime, cyan, blue, magenta, red);
+  animation: rgbSpin 2.8s linear infinite;
+}
+.friend-card::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #0d0d0df2, rgba(24, 24, 24, 0.9));
+  z-index: 0;
+}
+.friend-card > * {
+  position: relative;
+  z-index: 1;
+  padding: 0.9em;
+}
+.friend-card:hover {
+  transform: scale(1.03);
+  z-index: 5;
+}
+.friend-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-bottom: 0.6em;
+  font-size: 1.6em;
+  background: linear-gradient(135deg, #ff6b81, #ffb347);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+.friend-avatar img {
+  width: 150%;
+  height: 150%;
+  object-fit: cover;
+  display: block;
+}
+.friend-name {
+  margin: 0 0 0.25em;
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #fff;
+}
+.friend-description {
+  margin: 0;
+  font-size: 0.82em;
+  line-height: 1.45;
+  color: #d8d8d8;
+}
+.friend-link {
+  display: inline-block;
+  margin-top: 0.7em;
+  font-size: 0.9em;
+  color: #0f5bff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.friend-link:hover {
+  text-decoration: underline;
+}
+@keyframes rgbSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 @media (max-width: 1000px) {
   .profile-card {
     float: none;

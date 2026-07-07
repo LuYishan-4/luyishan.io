@@ -130,6 +130,150 @@ function updateRuntimeInfo() {
 setInterval(updateRuntimeInfo, 1000);
 updateRuntimeInfo();
 
+var friendData = [
+  {
+    name: '青呱GUA',
+    description: '裝弱大電神',
+    avatar: resolveAssetPath('asstes/friend/gua.png'),
+    url: 'https://guatw.net/html/Main.html',
+    accent: '#ff7aa2'
+  }
+];
+
+function createFriendCard(friend) {
+  var card = document.createElement('article');
+  card.className = 'friend-card';
+
+  var avatarHtml = '';
+  if (friend.avatar) {
+    if (typeof friend.avatar === 'string' && /^https?:\/\//i.test(friend.avatar)) {
+      avatarHtml = '<img src="' + friend.avatar + '" alt="' + friend.name + ' 頭像">';
+    } else if (typeof friend.avatar === 'string' && friend.avatar.trim() !== '') {
+      avatarHtml = '<img src="' + friend.avatar + '" alt="' + friend.name + ' 頭像">';
+    } else {
+      avatarHtml = '<span>' + (friend.emoji || '🙂') + '</span>';
+    }
+  } else {
+    avatarHtml = '<span>' + (friend.emoji || '🙂') + '</span>';
+  }
+
+  card.innerHTML = [
+    '<div class="friend-avatar">' + avatarHtml + '</div>',
+    '<h3 class="friend-name">' + friend.name + '</h3>',
+    '<p class="friend-description">' + friend.description + '</p>',
+    '<a class="friend-link" href="' + friend.url + '" target="_blank" rel="noopener noreferrer">前往站點</a>'
+  ].join('');
+  card.style.borderColor = friend.accent;
+  card.style.boxShadow = '0 10px 24px rgba(0, 0, 0, 0.25)';
+  return card;
+}
+
+function renderFriendCards(friends) {
+  var board = document.getElementById('friends-board');
+  if (!board) return [];
+
+  board.innerHTML = '';
+  var cards = friends.map(function (friend) {
+    return createFriendCard(friend);
+  });
+
+  cards.forEach(function (card) {
+    board.appendChild(card);
+  });
+
+  return cards;
+}
+
+function initFriendCards(cards) {
+  var board = document.getElementById('friends-board');
+  if (!board || !cards.length) return;
+
+  var boardWidth = board.clientWidth;
+  var boardHeight = board.clientHeight;
+  var motionState = cards.map(function (card) {
+    var width = card.offsetWidth || 220;
+    var height = card.offsetHeight || 140;
+    var x = Math.random() * Math.max(1, boardWidth - width);
+    var y = Math.random() * Math.max(1, boardHeight - height);
+    var vx = (Math.random() - 0.5) * 1.6;
+    var vy = (Math.random() - 0.5) * 1.6;
+    card.style.left = x + 'px';
+    card.style.top = y + 'px';
+    return { card: card, x: x, y: y, vx: vx, vy: vy, width: width, height: height };
+  });
+
+  function animate() {
+    boardWidth = board.clientWidth;
+    boardHeight = board.clientHeight;
+
+    motionState.forEach(function (item, index) {
+      item.x += item.vx;
+      item.y += item.vy;
+
+      if (item.x <= 0) {
+        item.x = 0;
+        item.vx = Math.abs(item.vx);
+      } else if (item.x + item.width >= boardWidth) {
+        item.x = Math.max(0, boardWidth - item.width);
+        item.vx = -Math.abs(item.vx);
+      }
+
+      if (item.y <= 0) {
+        item.y = 0;
+        item.vy = Math.abs(item.vy);
+      } else if (item.y + item.height >= boardHeight) {
+        item.y = Math.max(0, boardHeight - item.height);
+        item.vy = -Math.abs(item.vy);
+      }
+
+      item.card.style.left = item.x + 'px';
+      item.card.style.top = item.y + 'px';
+
+      for (var j = index + 1; j < motionState.length; j += 1) {
+        var other = motionState[j];
+        var overlapX = Math.min(item.x + item.width, other.x + other.width) - Math.max(item.x, other.x);
+        var overlapY = Math.min(item.y + item.height, other.y + other.height) - Math.max(item.y, other.y);
+
+        if (overlapX > 0 && overlapY > 0) {
+          if (overlapX < overlapY) {
+            if (item.x < other.x) {
+              item.x -= overlapX;
+              other.x += overlapX;
+            } else {
+              item.x += overlapX;
+              other.x -= overlapX;
+            }
+            item.vx *= -1;
+            other.vx *= -1;
+          } else {
+            if (item.y < other.y) {
+              item.y -= overlapY;
+              other.y += overlapY;
+            } else {
+              item.y += overlapY;
+              other.y -= overlapY;
+            }
+            item.vy *= -1;
+            other.vy *= -1;
+          }
+
+          item.card.style.left = item.x + 'px';
+          item.card.style.top = item.y + 'px';
+          other.card.style.left = other.x + 'px';
+          other.card.style.top = other.y + 'px';
+        }
+      }
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  requestAnimationFrame(animate);
+}
+
+var cards = renderFriendCards(friendData);
+initFriendCards(cards);
+
 var audioCtx;
 var pianoPressCount = 0;
 
