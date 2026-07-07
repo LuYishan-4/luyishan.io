@@ -136,7 +136,7 @@ var friendData = [
     description: '裝弱大電神',
     avatar: resolveAssetPath('asstes/friend/gua.png'),
     url: 'https://guatw.net/html/Main.html',
-    accent: '#ff7aa2'
+    accent: '#2c2023'
   }
 ];
 
