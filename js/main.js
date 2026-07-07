@@ -39,7 +39,7 @@ var frames = ['▁▂▃▄▅▆▇', '▂▁▂▃▄▅▆', '▃▂▁▂▃
 var fi = 0;
 setInterval(function () {
   fi = (fi + 1) % frames.length;
-  document.title = frames[fi] + ' ？？？';
+  document.title = frames[fi] + ' ui▀┳╲  LuYishan的小破個網 ▓';
 }, 200);
 
 var terminalInput = document.getElementById('terminal-input');
