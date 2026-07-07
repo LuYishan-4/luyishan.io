@@ -79,6 +79,7 @@ function resolveAssetPath(relativePath) {
 }
 
 var flyGifs = [
+  resolveAssetPath('asstes/fly/1510712344026546216-1.gif'),
   resolveAssetPath('asstes/fly/kkkk.gif'),
   resolveAssetPath('asstes/fly/mutsumi-mortis.gif'),
   resolveAssetPath('asstes/fly/sakuya.gif'),
